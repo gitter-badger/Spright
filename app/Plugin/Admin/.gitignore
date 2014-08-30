@@ -1,0 +1,9 @@
+# Project specific #
+www/*
+
+# OS generated files #
+.DS_Store
+.DS_Store?
+.Trashes
+Icon?
+Thumbs.db

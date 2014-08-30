@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CakeAdminPlugin" default="help">
+
+	<property name="src" value="www/app/Plugin/Admin" />
+	<property name="dest" value="Admin" />
+	
+	<target name="help">
+		<echo>
+	CakeAdminPlugin
+	---------------
+	ant clean     - delete files and folders from [Admin]
+	ant copy      - copy files to www dir
+		</echo>
+	</target>
+	
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${dest}/Config" includes="**/*"/>
+			<fileset dir="${dest}/Controller" includes="**/*"/>
+			<fileset dir="${dest}/Model" includes="**/*"/>
+			<fileset dir="${dest}/View" includes="**/*"/>
+		</delete>
+	</target>
+	
+	<target name="copy" depends="clean">
+		<!-- Admin/Config -->
+		<copy todir="${dest}/Config">
+			<fileset dir="${src}/Config">
+				<include name="**/*.php"/>
+			</fileset>
+		</copy>
+		<!-- Admin/Console -->
+		<copy todir="${dest}/Console">
+			<fileset dir="${src}/Console">
+				<include name="**/*.ctp"/>
+			</fileset>
+		</copy>
+		<!-- Admin/Controller -->
+		<copy todir="${dest}/Controller">
+			<fileset dir="${src}/Controller">
+				<include name="**/*.php"/>
+			</fileset>
+		</copy>
+		<!-- Admin/Model -->
+		<copy todir="${dest}/Model">
+			<fileset dir="${src}/Model">
+				<include name="**/*.php"/>
+			</fileset>
+		</copy>
+		<!-- Admin/View -->
+		<copy todir="${dest}/View">
+			<fileset dir="${src}/View">
+				<include name="**/*.php"/>
+				<include name="**/*.ctp"/>
+			</fileset>
+		</copy>
+		<!-- Admin/webroot -->
+		<copy todir="${dest}/webroot">
+			<fileset dir="${src}/webroot"/>
+		</copy>
+	</target>
+	
+	<target name="update">
+		<!-- Admin/Config -->
+		<copy todir="${src}/Config">
+			<fileset dir="${dest}/Config">
+				<include name="**/*.php"/>
+			</fileset>
+		</copy>
+		<!-- Admin/Controller -->
+		<copy todir="${src}/Controller">
+			<fileset dir="${dest}/Controller">
+				<include name="**/*.php"/>
+			</fileset>
+		</copy>
+		<!-- Admin/Model -->
+		<copy todir="${src}/Model">
+			<fileset dir="${dest}/Model">
+				<include name="**/*.php"/>
+			</fileset>
+		</copy>
+		<!-- Admin/View -->
+		<copy todir="${src}/View">
+			<fileset dir="${dest}/View">
+				<include name="**/*.php"/>
+				<include name="**/*.ctp"/>
+			</fileset>
+		</copy>
+		<!-- Admin/webroot -->
+		<copy todir="${src}/webroot">
+			<fileset dir="${dest}/webroot"/>
+		</copy>
+	</target>
+
+</project>
