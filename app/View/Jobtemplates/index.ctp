@@ -7,7 +7,7 @@
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a class="btn btn-danger" href="/cafmworks/jobtemplates/add">Add</a>
+                            <a class="btn btn-danger" href="/jobtemplates/add">Add</a>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

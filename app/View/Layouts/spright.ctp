@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -40,6 +40,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
 
 </head>
 
@@ -70,25 +72,18 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/js/plugins/metisMenu/metisMenu.min.js"></script>
-
-
     <script type="text/javascript" src="/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
-<script src="/js/tree.jquery.js"></script>
+    <script src="/js/tree.jquery.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="/js/sb-admin-2.js"></script>
     <script src="/js/typeahead.bundle.min.js"></script>
-
-
-        <script src="/js/spright.js"></script>
+    <script src="/js/bootbox.min.js"></script>
+    <script src="/js/spright.js?v=<?php echo rand() ?>"></script>
 
 <script>
 
-$('#tree1').tree({
-    dragAndDrop: true,
-        closedIcon: $('<i class="fa fa-arrow-circle-right"></i>'),
-    openedIcon: $('<i class="fa fa-arrow-circle-down"></i>')
-});
+
 
 
 $(function(){
@@ -228,17 +223,17 @@ datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
 queryTokenizer: Bloodhound.tokenizers.whitespace,
 prefetch: '/users/getNames.json',
 remote: '/users/getNames.json?q=%QUERY'
+
 });
  
 bestPictures.initialize();
  
-$('#JobFullname').typeahead(null, {
+typeaheadCtrl = $('#JobFullname').typeahead(null, {
 name: 'best-pictures',
 displayKey: 'fullname',
 source: bestPictures.ttAdapter()
 });
-
-
+ 
 
 
 

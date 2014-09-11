@@ -26,8 +26,8 @@ class JobsController extends AppController {
 	public function index() {
 		$this->Job->recursive = 0;
 		
-$this->Paginator->settings=array(
-              'limit'=>10
+        $this->Paginator->settings=array(
+              'limit'=>10, 'order'=> 'Job.id DESC'
        );
 		
 		
@@ -36,10 +36,50 @@ $this->Paginator->settings=array(
 	}
 
 
-            public function getJobs() {
+
+/**
+ * JSON actions
+ *
+* */
+   
+		public function checkForDuplicates() {
+		    
+		    	$this->Job->recursive = -1;
+
+//$this->autoRender = false;
+
+$qs = $this->request->query['qs'];
+$id = $this->request->query['node'];
+$room_id = $this->request->query['room_id'];
+//Check if QS is last in tree
+$this->loadModel('Question');
+$this->Question->id = $id;
+$childCount = $this->Question->childCount($id, true);
+
+
+$level = explode("[",$qs);
+$level = trim(end($level), "]") . "ID";
 
 
 
+//Only check for duplicate if the QS is the last in the tree
+if($childCount<1):
+	$json = $this->Job->find('all', array(
+			'conditions' => array($level => $id,'room_id'=> $room_id,'created >=' => date('Y-m-d H:i:s', strtotime('-24 hour'))),
+			'recursive' => -1
+			));
+			
+endif;		
+
+
+	$this->set('json', $json);
+	$this->set('_serialize', 'json');			
+		}
+
+   
+   
+   
+     public function getJobs() {
      $this->paginate = array(
         'fields' => array('Job.id','Job.fullname','Building.code','Room.code','Statustype.code'),
         'contain' => array('Room','Building','Statustype')
@@ -104,7 +144,7 @@ public function schedule() {
 		
 		$this->set('_serialize','job');
 	}
-	
+	 
 	
 
 /**
@@ -136,22 +176,52 @@ public function schedule() {
 		        $templateID = $qs1;
 		    endif;
 
-		    echo "TemplateID = " .$templateID;
-
 			$this->request->data['Job']['statustype_id'] = 1;
 			$this->request->data['Job']['jobtype_id'] = 1;
 			$this->Job->create();
 		
 			if ($this->Job->save($this->request->data)) {
 
-/*
-            $this->loadModel('Jobtemplate');
-            $row = $this->Model->find('all', array('conditions' => array('jobtemplate_id' => 	$this->request->data['Job']['jobtype_id'] )));
-            $this->Model->create(); // Create a new record
-            $this->Model->save($row); // And save it*/ 
+            //What job template does this question row relate to?
+            $this->loadModel('Question');
+            $question = $this->Question->find('first', array('conditions' => array('id' => $this->request->data['Job']['qs1ID'] )));
+            
+            //Job template ID from find above
+            
+            $jobTemplateID = $question['Question']['jobtemplate_id'];
+
+            //We have executed the save, so we need the job ID now to assosiate it to the tasks
+            $lastJobID = $this->Job->getLastInsertID();
+            
+            //We know the the job template ID now so lets see what tasks need to be created for it.
+            $this->loadModel('Jobtask');
+            $jobTasks = $this->Jobtask->find('all', array('conditions' => array('jobtemplate_id' => $jobTemplateID)));
+            
+           // debug($jobTasks);
+            
+            $this->loadModel('Task');
+            
+            foreach($jobTasks as $jobTask){
+
+                $this->Task->create();
+            
+                $this->Task->save(array(
+                    'job_id' => $lastJobID,
+                    'code'=>$jobTask['Jobtask']['code'],
+                    'skill_id'=>$jobTask['Jobtask']['skill_id'],
+                    'scheduled'=> 0,
+                    'statustype_id' => 1,
+                    'created' => date("Y-m-d H:i:s")
+            ));
+         
+         }
+            
+            
+            //$this->Model->create(); // Create a new record
+            //$this->Model->save($row); // And save it
 
 				$this->Session->setFlash(__('Your job has been raised'), 'default', array('class' => 'alert alert-success'));
-				return $this->redirect(array('action' => 'index'));
+			   return $this->redirect(array('action' => 'edit', $this->Job->id));
 			} else {
 				$this->Session->setFlash(__('The job could not be saved. Please, try again.'), 'default', array('class' => 'alert alert-danger'));
 			}
@@ -185,8 +255,12 @@ public function schedule() {
 				$this->Session->setFlash(__('The job could not be saved. Please, try again.'), 'default', array('class' => 'alert alert-danger'));
 			}
 		} else {
+
+		    
 			$options = array('conditions' => array('Job.' . $this->Job->primaryKey => $id));
 			$this->request->data = $this->Job->find('first', $options);
+			
+		//debug($this->request->data);
 		}
 		$users = $this->Job->User->find('list');
 		$jobtypes = $this->Job->Jobtype->find('list');

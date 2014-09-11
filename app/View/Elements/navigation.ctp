@@ -128,14 +128,26 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Locations<span class="fa arrow"></span></a>
+                          <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Location Management<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="#">Buildings</a>
                                 </li>
                                 <li>
                                     <a href="#">Skills</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-car"></i> Asset Management<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/assets/create">Create Asset</a>
+                                </li>
+                                <li>
+                                    <a href="/assets">View Assets</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -93,7 +93,54 @@
                                    
                                 </div>
                                 <div class="tab-pane fade" id="tasks">
+                                <br />
+<!-- Tasks -->
+<div class="panel panel-default">
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Task</th>
+                                            <th>Scheduled</th>
+                                            
+                                            <th>Created</th>
 
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                <?php foreach ($this->data['Task'] as $task): ?>    
+                                    
+                                        <tr>
+                                            
+                                            <td><?php echo $task['code']; ?></td>
+                                            <td> 
+                                                  <?php if ($task['scheduled' ]===0): ?>
+                                             <?php  echo $task['user_id']; ?></i>
+                                            <?php else: ?>
+                                                 <i class="fa fa-times" style="color:red"></i>
+                                            <?php endif; ?>
+                                            
+                                            </td>
+                                            <td><?php echo $task['created']; ?></td>
+                                            
+    
+                                        </tr>
+                                <?php endforeach; ?>        
+          
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+            <!-- End Tasks -->        
+            
+
+ 
 
                                 </div>
 
@@ -107,7 +154,7 @@
 
 <div class="form-group">
 <label>Completion time</label>
-					<div class="input-group date form_datetime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+					<div class="input-group date form_datetime" style="max-width:30%" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
                     <input class="form-control" size="16" type="text" value="" readonly="">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>

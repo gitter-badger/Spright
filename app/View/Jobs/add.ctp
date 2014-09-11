@@ -39,7 +39,6 @@
 
                 <div class="form-group">
                     <?php echo $this->Form->input('building_id', array('class' => 'form-control', 'placeholder' => 'Room Id','empty' => '-- Choose a building --'));
-                    //echo $form->input('salutation_id', array('options' => $salutations, 'empty' => 'Please choose a title'));
 
                     ?>
                 </div>
@@ -50,16 +49,16 @@
 
                 <div class="form-group">
                     <?php echo $this->Form->input('description', array('class' => 'form-control', 'placeholder' => 'In detail please describe what you need help with?'));?>
-
+                    
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                <button type="submit" id="addJobButton" class="btn btn-primary btn-lg btn-block">Submit</button>
             
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
-
-                      <div class="col-lg-6">
-                                    <h3>How can we help you?</h3>
+<!-- What do you need help with Start -->
+                      <div class="col-lg-6" id="helpwith">
+                                    <h3>What do you need help with?</h3>
                  <div class="form-group">
 
 
@@ -81,6 +80,7 @@
                 <?php echo $this->Form->end() ?>
                                  
                                 </div>
+<!-- What do you need help with end-->                                
                                 <!-- /.col-lg-6 (nested) -->
 
 

@@ -33,6 +33,11 @@ Router::parseExtensions();
 	Router::connect('/', array('controller' => 'jobs', 'action' => 'dashboard'));
 	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
+	Router::connect('/assets', array('controller' => 'codes', 'action' => 'assetlist'));
+	Router::connect('/assets/create', array('controller' => 'codes', 'action' => 'assetcreate'));
+	//Space Module
+	Router::connect('/space', array('controller' => 'codes', 'action' => 'locations'));
+	
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
