@@ -8,6 +8,9 @@ App::uses('AppModel', 'Model');
  */
 class Code extends AppModel {
 
+	public $actsAs = array('Tree'
+	);
+
 /**
  * Display field
  *
@@ -15,42 +18,66 @@ class Code extends AppModel {
  */
 	public $displayField = 'code';
 
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
- * belongsTo associations
+ * Validation rules
  *
  * @var array
  */
-	public $belongsTo = array(
-		'ParentCode' => array(
-			'className' => 'Code',
-			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
+	public $validate = array(
+		'code' => array(
+			'notEmpty' => array(
+				'rule' => array('isUnique'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			)
+		),
+		'bookable' => array(
+			'notEmpty' => array(
+				'rule' => array('isEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			)
 		)
 	);
 
-/**
- * hasMany associations
- *
- * @var array
- */
 	public $hasMany = array(
-		'ChildCode' => array(
-			'className' => 'Code',
-			'foreignKey' => 'parent_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+		'Attachment' => array(
+			'className'    => 'Attachment',
+			'foreignKey'   => 'foreign_key',
+			'dependent'    => false,
+			'conditions'   => '',
+			'fields'       => '',
+			'order'        => '',
+			'limit'        => '',
+			'offset'       => '',
+			'exclusive'    => '',
+			'finderQuery'  => '',
+			'counterQuery' => '',
+		)
+	);
+
+	public $belongsTo = array(
+		'Site' => array(
+			'className'  => 'Code',
+			'foreignKey' => 'site_id',
+		),
+		'Building' => array(
+			'className'  => 'Code',
+			'foreignKey' => 'building_id',
+		),
+		'Floor' => array(
+			'className'  => 'Code',
+			'foreignKey' => 'floor_id',
+		),
+		'Room' => array(
+			'className'  => 'Code',
+			'foreignKey' => 'room_id',
 		)
 	);
 

@@ -29,14 +29,15 @@
 Router::setExtensions(array('json', 'xml'));
 Router::parseExtensions();
 
-
+ 
 	Router::connect('/', array('controller' => 'jobs', 'action' => 'dashboard'));
 	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
 	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
-	Router::connect('/assets', array('controller' => 'codes', 'action' => 'assetlist'));
+	Router::connect('/assets', array('controller' => 'codes', 'action' => 'assetindex'));
 	Router::connect('/assets/create', array('controller' => 'codes', 'action' => 'assetcreate'));
+	Router::connect('/assets/view', array('controller' => 'codes', 'action' => 'assetview'));
 	//Space Module
-	Router::connect('/space', array('controller' => 'codes', 'action' => 'locations'));
+	Router::connect('/locations', array('controller' => 'codes', 'action' => 'location'));
 	
 /**
  * ...and connect the rest of 'Pages' controller's URLs.

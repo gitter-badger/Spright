@@ -47,7 +47,7 @@
                         <td class="actions">
                            
                           <?php echo $this->Html->link('<span class="glyphicon glyphicon-ok-sign" style="color:#d9534f"></span>',
-                          array('action' => 'edit', $job['Job']['id']), array('escape' => false)); ?>     
+                          array('action' => 'edit', $job['Job']['id'] .'#complete'), array('escape' => false)); ?>     
                           
                           
                        

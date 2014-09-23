@@ -1,4 +1,4 @@
-<div id="page-wrapper">
+<div id="page-wrapper" class="createJob">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Raise a job</h1>

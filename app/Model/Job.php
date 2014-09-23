@@ -13,7 +13,8 @@ App::uses('AppModel', 'Model');
  */
 class Job extends AppModel {
 
-	public $actsAs = array('Containable','AuditLog.Auditable');
+	public $actsAs = array('Containable');
+	
 
 /**
  * Validation rules
@@ -162,26 +163,5 @@ class Job extends AppModel {
 		)
 	);
 
-
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
-	public $hasAndBelongsToMany = array(
-		'Jobtemplate' => array(
-			'className' => 'Jobtemplate',
-			'joinTable' => 'jobs_jobtemplates',
-			'foreignKey' => 'job_id',
-			'associationForeignKey' => 'jobtemplate_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-		)
-	);
 
 }
